@@ -3,7 +3,7 @@ import {assets, menuLinks} from '../assets/assets'
 import { Link, useLocation } from 'react-router-dom'
 
 
-const Navbar = () => {
+const Navbar = ({setShowLogin}) => {
     const [open,setOpen]=useState(false)
     const location=useLocation();
   return (
@@ -23,7 +23,20 @@ const Navbar = () => {
                     </Link>
                 ))
             }
+            <div className='hidden lg:flex items-center text-sm gap-2 border border-borderColor px-3 rounded-full max-w-56'>
+                <input type='text' className='py-1.5 w-full bg-transparent outline-none placeholder-gray-500' 
+                placeholder='Search products'/>
+                <img src={assets.search_icon} alt='search'/>
+            </div>
+            <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
+                <button className='cursor-pointer'>Dashboard</button>
+                <button onClick={()=>setShowLogin(true)} className='cursor-pointer px-8 py-y
+                 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg'>Login</button>
+            </div>
         </div>
+        <button className='sm:hidden cursor-pointer' aria-label='menu' onClick={()=>setOpen(!open)}>
+            <img src={open ? assets.close_icon : assets.menu_icon} alt='menu'/>
+        </button>
     </div>
   )
 }
