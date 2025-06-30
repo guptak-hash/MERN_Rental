@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import {assets, menuLinks} from '../assets/assets'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 
 const Navbar = ({setShowLogin}) => {
     const [open,setOpen]=useState(false)
     const location=useLocation();
+   const navigate=useNavigate();
   return (
     <div className={`flex items-center justify-between px-6 md:px:16 lg:px-24 xl:px-32 py-4
     text-grey-600 border-b border-borderColor relative transition-all ${location.pathname==='/' && 'bg-light'}`}>
@@ -29,7 +30,10 @@ const Navbar = ({setShowLogin}) => {
                 <img src={assets.search_icon} alt='search'/>
             </div>
             <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
-                <button className='cursor-pointer'>Dashboard</button>
+                {/* <button className='cursor-pointer'>Dashboard</button> */}
+                <Link to='/owner'>
+                Dashboard
+                </Link>
                 <button onClick={()=>setShowLogin(true)} className='cursor-pointer px-8 py-y
                  bg-primary hover:bg-primary-dull transition-all text-white rounded-lg'>Login</button>
             </div>
