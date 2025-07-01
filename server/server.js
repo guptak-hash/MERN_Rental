@@ -3,6 +3,8 @@ require('dotenv').config();
 const cors=require('cors');
 const connectDB = require('./configs/db');
 const UserRouter = require('./routes/user.routes');
+const OwnerRouter = require('./routes/owner.routes');
+const BookingRouter = require('./routes/booking.routes');
 
 // Initialize express app
 const app=express();
@@ -18,6 +20,8 @@ app.use('/test',(req,res)=>{
 })
 
 app.use('/api',UserRouter)
+app.use('/api',OwnerRouter)
+app.use('/api',BookingRouter)
 
 const PORT = process.env.PORT || 4000
 
