@@ -1,3 +1,4 @@
+// server\routes\booking.routes.js
 const express=require('express');
 const { checkAvailabilityOfCar, createBooking, getUserBookings, getOwnerBookings, changeBookingStatus } = require('../controllers/booking.controller');
 const protect = require('../middleware/auth');

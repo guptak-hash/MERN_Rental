@@ -1,3 +1,4 @@
+// server\routes\user.routes.js
 const express=require('express');
 const { registerUser, loginUser, getUserData, getCars } = require('../controllers/user.controller');
 const protect = require('../middleware/auth');
