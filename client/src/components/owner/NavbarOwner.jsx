@@ -1,9 +1,10 @@
 import React from 'react'
 import { assets, dummyCarData } from '../../assets/assets'
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
 
 const NavbarOwner = () => {
-    const user=dummyCarData;
+    const {user}=useAppContext();
 
   return (
     <div className='flex items-center justify-between px-6 md:px-10 text-gray-500
@@ -11,7 +12,7 @@ const NavbarOwner = () => {
 <Link to='/'>
 <img src={assets.logo} alt='' className='h-7'/>
 </Link>
-<p>Welcome, {user.name || 'owner'}</p>
+<p>Welcome, {user?.name || 'owner'}</p>
     </div>
   )
 }

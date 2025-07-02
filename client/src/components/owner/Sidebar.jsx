@@ -1,14 +1,28 @@
 import React, { useState } from 'react'
-import { assets, dummyUserData, ownerMenuLinks } from '../../assets/assets'
+import { assets, ownerMenuLinks } from '../../assets/assets'
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 
 const Sidebar = () => {
-    const user = dummyUserData;
+    const { user, axios, fetchUser } = useAppContext();
     const location = useLocation();
     const [image, setImage] = useState('')
     const updateImage = async () => {
-        user.image = URL.createObjectURL(image);
-        setImage('')
+        try {
+            const formData = new FormData();
+            formData.append('image', image)
+            const { data } = await axios.post('/api/update-image', formData)
+            if (data.success) {
+                fetchUser();
+                toast.success(data.message);
+                setImage('')
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
     return (
         <div className='relative min-h-screen md:flex flex-col items-center pt-8
@@ -16,7 +30,7 @@ const Sidebar = () => {
             <div className='group relative'>
                 <label htmlFor='image'>
                     <img src={image ? URL.createObjectURL(image) : user?.image || "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} alt=''
-                    className='h-9 md:h-14 md:w-14 w-9 rounded-full mx-auto'/>
+                        className='h-9 md:h-14 md:w-14 w-9 rounded-full mx-auto' />
                     <input type='file' id='image' accept='image/*' hidden onChange={(e) =>
                         setImage(e.target.files[0])
                     } />
