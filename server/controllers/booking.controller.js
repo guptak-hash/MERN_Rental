@@ -92,12 +92,14 @@ const changeBookingStatus = async (req, res) => {
     try {
         const { _id } = req.user;
         const { bookingId, status } = req.body;
-        const booking = await BookingModel.find(bookingId)
+        const booking = await BookingModel.findById(bookingId)
+        // console.log('booking >> ',booking)
         if (booking.owner.toString() !== _id.toString()) {
             return res.json({ success: false, message: 'Unauthorized' })
         }
         booking.status = status;
         await booking.save();
+        // console.log('changeBookingStatus >> booking >> ',booking)
         res.json({ success: true, message: 'Status updated' });
     } catch (error) {
         console.log(error.message);

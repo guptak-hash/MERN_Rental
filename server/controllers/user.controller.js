@@ -1,6 +1,7 @@
 const UserModel = require('../models/user.model')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const CarModel = require('../models/car.model');
 
 // generate token
 const generateToken = (userId) => {
@@ -60,4 +61,16 @@ const getUserData = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, loginUser, getUserData}
+// get all cars for the frontend
+const getCars = async (req, res) => {
+    try {
+        const cars=await CarModel.find({isAvailable:true});
+        res.json({ success: true, cars })
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message })
+    }
+}
+
+
+module.exports = { registerUser, loginUser, getUserData, getCars}

@@ -57,6 +57,7 @@ const getOwnerCars = async (req, res) => {
     try {
         const { _id } = req.user;
         const cars = await CarModel.find({ owner: _id });
+         console.log('cars >> ',cars)
         res.json({ success: true, cars })
     } catch (error) {
         console.log(error.message);
@@ -125,6 +126,7 @@ const getDashboardData = async (req, res) => {
             totalBookings: bookings.length,
             pendingBookings: pendingBookings.length,
             recentBookings: bookings.slice(0, 3),
+            completedBookings: completedBookings.length,
             monthlyRevenue
         }
 
@@ -140,7 +142,7 @@ const updateUserImage = async (req, res) => {
     try {
         const { _id } = req.user;
         const imageFile = req.file;
-
+        console.log("imageFile >> ",imageFile)
         // upload image to image kit
         const fileBuffer = fs.readFileSync(imageFile.path)
         const response = await imagekit.upload({

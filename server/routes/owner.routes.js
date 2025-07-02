@@ -11,7 +11,7 @@ OwnerRouter.post('/change-role',protect,changeRoleToOwner);
 
 OwnerRouter.post('/add-car',upload.single('image'),protect,addCar)
 
-OwnerRouter.get('/cars',protect,getOwnerCars)
+OwnerRouter.get('/owner/cars',protect,getOwnerCars)
 
 OwnerRouter.post('/toggle-car',protect,toggleCarAvailability)
 
